@@ -1,1 +1,3 @@
-This script is meant to copy a streaming (downloading) file to another machine.
+Copy a streaming (downloading) file to another machine.
+
+I'm using this to copy chrom/firefox downloads to another machine before they finish.
