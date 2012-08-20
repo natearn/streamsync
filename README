@@ -1,3 +1,5 @@
-Copy a Chrome/Firefox streaming (downloading) file to another machine while it's downloading.
+An rsync wrapper that reiterates until the file stops being modified within a given time peroid.
 
-I'm using this to play videos on a different system than the one they are being downloaded to.
+Usage: streamsync [OPTIONS] FILE LOCATION [SLEEP]
+
+OPTIONS, FILE, and LOCATION are passed directly to rsync, so they should look the same as rsync arguments. SLEEP is the number of seconds to wait before resyncing the file (default is 10). If FILE is not found, streamsync will look for FILE.* because many downloaders use temporary file extensions. The --inplace options is always enabled as it is required for this application to work at all.
