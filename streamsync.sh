@@ -21,7 +21,7 @@ fi
 
 # what happens when a temporary file is deleted?
 while [ "$FILE_INFO" = `ls -l $FILE` ]; do
-	FILE_INFO = `ls -l $FILE`
+	FILE_INFO=`ls -l $FILE`
 	rsync --inplace "$OPTIONS" "$FILE" "$LOCATION"
 	sleep $TIMEOUT
 done
