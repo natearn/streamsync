@@ -1,5 +1,15 @@
-An rsync wrapper that reiterates until the file stops being modified within a given time peroid.
+streamsync is designed to make it easy to copy a streaming (downloading) file from one machine to another before the download is complete.
 
-Usage: streamsync [OPTIONS] FILE LOCATION [SLEEP]
+The particular use case is that, while vlc can play a video file that isn't fully downloaded yet, I cannot find a file transfer program that works in the same way. This script utilises rsync's --inplace feature in order to repeatedly sync the streaming file between machines indefinitely.
 
-OPTIONS, FILE, and LOCATION are passed directly to rsync, so they should look the same as rsync arguments. SLEEP is the number of seconds to wait before resyncing the file (default is 10). If FILE is not found, streamsync will look for FILE.* because many downloaders use temporary file extensions. The --inplace options is always enabled as it is required for this application to work at all.
+Usage: streamsync [-t SLEEP] [-o OPTIONS] SOURCE DEST
+
+The script creates a temporary hard link to SOURCE to perserve a consistent file name (some downloaders use temporary file names for incomplete files), and continues to sync that link to DEST until the link stops existing (or is interrupted). The link will be made in /tmp and contain SOURCE in its name so that it can be indentified easily. The proper way to terminate the script is with SIG_INT (ctrl-c). The script will clean-up the temporary link and exit successfully. Alternatively, the user can simply delete the link file to achieve the same effect.
+
+OPTIONS is a quoted string containing any rsync options that the user would like to use. By default "--inplace" and "-t" are used and should be considered required for this script to work.
+
+DEST is the destination argument for rsync. I'm expecting this to be either the remote shell or local forms (see rysnc documentation). It is recommended to specify a target file name, otherwise the name of the temporary link will be used. The link name contains SOURCE (the source file name) to make it easy to indentify.
+
+SOURCE is the source argument for rsync.
+
+SLEEP is the number of seconds to wait between iterations, the default is 10.
