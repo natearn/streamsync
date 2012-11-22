@@ -6,7 +6,7 @@ Usage: streamsync [-t SLEEP] [-o OPTIONS] SOURCE DEST
 
 The script creates a temporary hard link to SOURCE to perserve a consistent file name (some downloaders use temporary file names for incomplete files), and continues to sync that link to DEST until the link stops existing (or is interrupted). The link will be made in /tmp and contain SOURCE in its name so that it can be indentified easily. The proper way to terminate the script is with SIG_INT (ctrl-c). The script will clean-up the temporary link and exit successfully. Alternatively, the user can simply delete the link file to achieve the same effect.
 
-OPTIONS is a quoted string containing any rsync options that the user would like to use. By default "--inplace" and "-t" are used and should be considered required for this script to work.
+OPTIONS is a quoted string containing any rsync options that the user would like to use. By default, "--inplace" and "-t" are enabled and should be considered required for this script to work.
 
 DEST is the destination argument for rsync. I'm expecting this to be either the remote shell or local forms (see rysnc documentation). It is recommended to specify a target file name, otherwise the name of the temporary link will be used. The link name contains SOURCE (the source file name) to make it easy to indentify.
 
